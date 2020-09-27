@@ -112,7 +112,7 @@ var createMap = function(earthquakeMarkers, plateMarkers) {
         var baseMaps = {
                 "Light Map": lightmap,
                 "Dark Map": darkmap,
-                "Geographical Map": satellitemap
+                "Satellite Map": satellitemap
         };
 
         // Add the overlay layers
@@ -130,7 +130,7 @@ var createMap = function(earthquakeMarkers, plateMarkers) {
         });
 
 
-        // Create a legend and create a div to add to the map
+        // Create a legend and create a div for the legend information to add to the map
         var info = L.control({
                 position: "bottomleft"
         });
@@ -178,7 +178,7 @@ var createMap = function(earthquakeMarkers, plateMarkers) {
         }).addTo(myMap);
 };
 
-// Use d3 to query the URL for the geoJSON earthquake data. This is the data represents all earthquakes from the past day
+// Use d3 to query the URL for the geoJSON earthquake data. This is data represents all earthquakes from the past day
 var url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson'
 d3.json(url, function(response1) {
 
