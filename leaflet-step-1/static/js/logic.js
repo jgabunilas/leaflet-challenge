@@ -47,7 +47,7 @@ var markEarthquakes = function(earthquakeData) {
                 // Create a circle for each earthquake. The popup will include information about the lication
                 var earthquakeMarker = L.circle([lat, lon], {
                         // Scale the radius by the magnitude of the earthquake
-                        radius: 50000 * mag,
+                        radius: 35000 * mag,
                         color: '#000000',
                         weight: 1,
                         // Set the color of the circle based on the depth of the earthquake
@@ -105,7 +105,8 @@ var createMap = function(earthquakeMarkers) {
         info.onAdd = function() {
                 var div = L.DomUtil.create("div", "legend");
                 var limits = [
-                        '<0 - 39',
+                        '<0',
+                        '0 - 39',
                         '40 - 79',
                         '80 - 119',
                         '120 - 159',
@@ -121,22 +122,14 @@ var createMap = function(earthquakeMarkers) {
                         '#28518B',
                         '#053194'
                 ];
-                var labels = [];
-
-                var legendInfo = "<h2>Earthquake Depth</h2>"
+                // Legend heading
+                var legendInfo = "<h3>Earthquake Depth</h3>"
 
                 div.innerHTML = legendInfo;
 
-
-                // limits.forEach(function(limit, index) {
-                //         labels.push(`<div style=\"background-color: ${colors[index]}"\"><h3>${limit}</h3></div>`);
-                // });
-                
-                // div.innerHTML += `<i>${labels.join("")}</i>`;
-
                 for (var i = 0; i < limits.length; i++) {
                         div.innerHTML +=
-                            '<i style="background:' + (colors[i+1]) + '"></i> ' +
+                            '<i style="background:' + (colors[i]) + '"></i> ' +
                             limits[i] + '<br>';
                     }
 
@@ -144,11 +137,6 @@ var createMap = function(earthquakeMarkers) {
         };
         // Add the info legend to the map
         info.addTo(myMap);
-
-        // L.control.layers(null, overlayMaps, {
-        //         collapsed: false
-        // }).addTo(myMap);
-
 
 
 };

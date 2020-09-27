@@ -12,6 +12,7 @@ html {
 .legend {
   line-height: 18px;
   color: black;
+  font-size: 18px;
 }
 
 .legend i {
@@ -19,5 +20,5 @@ html {
   height: 18px;
   float: left;
   margin-right: 8px;
-  opacity: 0.7;
+  opacity: 0.7
 }
