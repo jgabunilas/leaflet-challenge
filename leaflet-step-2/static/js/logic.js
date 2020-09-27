@@ -1,4 +1,4 @@
-// Leaflet Part 1
+// Leaflet Part 2
 // Written by Jason Gabunilas
 
 
@@ -64,13 +64,20 @@ var markEarthquakes = function(earthquakeData) {
         // console.log(earthquakeMarkers)
         var earthquakeMarkersGroup = L.layerGroup(earthquakeMarkers)
 
-        // Call the createMap function
-        createMap(earthquakeMarkersGroup)
 
+        // Call the createMap function
+        // createMap(earthquakeMarkersGroup)
+        return earthquakeMarkersGroup
+
+};
+
+// The markPlates function takes the "features" of the techtonic plates JSON response and creates a layer from these features using L.geoJSON
+var markPlates = function(plateData) {
+        return L.geoJSON(plateData)
+        
 }
 
-var createMap = function(earthquakeMarkers) {
-
+var createMap = function(earthquakeMarkers, plateMarkers) {
 
 
         var lightmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
@@ -82,12 +89,26 @@ var createMap = function(earthquakeMarkers) {
                 accessToken: API_KEY
         });
 
+        var darkmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+                attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+                tileSize: 512,
+                maxZoom: 18,
+                zoomOffset: -1,
+                id: "mapbox/dark-v10",
+                accessToken: API_KEY
+        });
+        
+
+        // Add the base layers
         var baseMaps = {
-                "Light Map": lightmap
+                "Light Map": lightmap,
+                "Dark Map": darkmap
         };
 
+        // Add the overlay layers
         var overlayMaps = {
-                Earthquakes: earthquakeMarkers
+                'Earthquakes': earthquakeMarkers,
+                'Techtonic Plates': plateMarkers
         };
 
         var myMap = L.map("mapid", {
@@ -140,13 +161,25 @@ var createMap = function(earthquakeMarkers) {
         info.addTo(myMap);
 
 
+
+        // Add layer control
+        L.control.layers(baseMaps, overlayMaps, {
+                collapsed: false
+        }).addTo(myMap);
 };
 
-// Use d3 to query the URL for the geoJSON data. This is the data represents all earthquares from the past day
+// Use d3 to query the URL for the geoJSON earthquake data. This is the data represents all earthquakes from the past day
 var url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson'
-d3.json(url, function(response) {
-        // console.log(response)
+d3.json(url, function(response1) {
 
-        // Call the markEarthquakes function, passing in the features of the geoJSON response
-        markEarthquakes(response.features)
+        // Use a nested d3.json call on the techtonic plates JSON file
+        d3.json('static/data/plates.json', function(response2) {
+                // Call the createMap function and pass in the responses from the markEarthquakes and markPlates functions, with their respective JSON responses as input values
+                createMap(markEarthquakes(response1.features), markPlates(response2.features)
+                )
+        })
+
 })
+
+
+
