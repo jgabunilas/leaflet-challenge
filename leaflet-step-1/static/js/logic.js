@@ -127,15 +127,19 @@ var createMap = function(earthquakeMarkers) {
 
                 div.innerHTML = legendInfo;
 
-                // limits.forEach(function(limit, index) {
-                //         labels.push("<li style=\"background-color: " + colors[index] + "\"></li>");
-                // });
 
-                limits.forEach(function(limit, index) {
-                        labels.push(`<div style=\"background-color: ${colors[index]}"\"><h3>${limit}</h3></div>`);
-                });
+                // limits.forEach(function(limit, index) {
+                //         labels.push(`<div style=\"background-color: ${colors[index]}"\"><h3>${limit}</h3></div>`);
+                // });
                 
-                div.innerHTML += "<ul>" + labels.join("") + "</ul>";
+                // div.innerHTML += `<i>${labels.join("")}</i>`;
+
+                for (var i = 0; i < limits.length; i++) {
+                        div.innerHTML +=
+                            '<i style="background:' + (colors[i+1]) + '"></i> ' +
+                            limits[i] + '<br>';
+                    }
+
                 return div;
         };
         // Add the info legend to the map
