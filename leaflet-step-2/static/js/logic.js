@@ -24,7 +24,7 @@ var getColor = function(value) {
 
 
 
-// The function markEarthquakes will take as an argument the data provided by the JSON query and construct a marker group from it
+// The function markEarthquakes will take as an argument the data provided by the JSON query and construct a marker group from it. The marker group is returned
 var markEarthquakes = function(earthquakeData) {
 
         // Initialize an array to hold earthquake markers
@@ -48,12 +48,13 @@ var markEarthquakes = function(earthquakeData) {
                 var earthquakeMarker = L.circle([lat, lon], {
                         // Scale the radius by the magnitude of the earthquake
                         radius: 35000 * mag,
+                        // Stroke color
                         color: '#000000',
                         weight: 1,
                         // Set the color of the circle based on the depth of the earthquake
                         fillColor: getColor(depth),
                         fillOpacity: 0.5
-                }).bindPopup(`<h3>Location:${place}</h3><p>Magnitude: ${mag}</p>`)
+                }).bindPopup(`<h3>Location:${place}</h3><p><strong>Magnitude:</strong> ${mag}, <strong>Depth:</strong> ${depth}</p><p></p>`)
 
                 // Add marker to the earthquakeMarkers array
                 earthquakeMarkers.push(earthquakeMarker)
@@ -71,7 +72,7 @@ var markEarthquakes = function(earthquakeData) {
 
 };
 
-// The markPlates function takes the "features" of the techtonic plates JSON response and creates a layer from these features using L.geoJSON
+// The markPlates function takes the "features" of the techtonic plates JSON response and creates a layer from these features using L.geoJSON. The layer is returned
 var markPlates = function(plateData) {
         return L.geoJSON(plateData)
         
@@ -79,7 +80,7 @@ var markPlates = function(plateData) {
 
 var createMap = function(earthquakeMarkers, plateMarkers) {
 
-
+        // Define the base map layers
         var lightmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
                 attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
                 tileSize: 512,
