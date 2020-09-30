@@ -24,8 +24,8 @@ The code executes as follows:
 5. The `markPlates()` function has the simple task of  returning the tectonic plate geoJSON data as a geoJSON layer, using the `L.geoJSON()` function.
 6. The returned earthquake marker layer and tectonic plates layer from steps (4) and (5) are passed into the `createMap()` function.
 7. `createMap()` accepts the marker and plate boundary layers and renders the map by performing the following:
-  - Calling `L.tilelayer()` to create the light, dark, and satellite base maps
-  - Assigning the earthquake marker and tectonic plate layer groups to an overlay layers object
-  - Calling `L.map()` to initialize the map with the light base and earthquake markers rendered. The `worldCopyJump` property of the map is set to `true` so that the map features automatically regenerate when the user scrolls the map on screen.
-  - Calling `L.control()` to create and construct a legend for the circle colors and earthquake depths
-  - Calling `L.control.layers()` to add layer control with the additional base map options and overlay map options
+   - Calling `L.tilelayer()` to create the light, dark, and satellite base maps
+   - Assigning the earthquake marker and tectonic plate layer groups to an overlay layers object
+   - Calling `L.map()` to initialize the map with the light base and earthquake markers rendered. The `worldCopyJump` property of the map is set to `true` so that the map features automatically regenerate when the user scrolls the map on screen.
+   - Calling `L.control()` to create and construct a legend for the circle colors and earthquake depths
+   - Calling `L.control.layers()` to add layer control with the additional base map options and overlay map options
