@@ -1,1 +1,1 @@
-# leaflet-challenge
+# Leaflet Challenge - Earthquake Mapping from USGS
