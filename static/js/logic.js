@@ -72,7 +72,7 @@ var markEarthquakes = function(earthquakeData) {
 
 };
 
-// The markPlates function takes the "features" of the techtonic plates JSON response and creates a layer from these features using L.geoJSON. The layer is returned
+// The markPlates function takes the "features" of the tectonic plates JSON response and creates a layer from these features using L.geoJSON. The layer is returned
 var markPlates = function(plateData) {
         return L.geoJSON(plateData)
         
@@ -119,7 +119,7 @@ var createMap = function(earthquakeMarkers, plateMarkers) {
         // Add the overlay layers
         var overlayMaps = {
                 'Earthquakes': earthquakeMarkers,
-                'Techtonic Plates': plateMarkers
+                'Tectonic Plates': plateMarkers
         };
 
         var myMap = L.map("mapid", {
@@ -183,7 +183,7 @@ var createMap = function(earthquakeMarkers, plateMarkers) {
 var url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson'
 d3.json(url, function(response1) {
 
-        // Use a nested d3.json call on the techtonic plates JSON file
+        // Use a nested d3.json call on the tectonic plates JSON file
         d3.json('static/data/plates.json', function(response2) {
                 // Call the createMap function and pass in the responses from the markEarthquakes and markPlates functions, with their respective JSON responses as input values
                 createMap(markEarthquakes(response1.features), markPlates(response2.features)
